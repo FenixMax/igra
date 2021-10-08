@@ -18,7 +18,7 @@ bulletSound = pygame.mixer.Sound('bullet.mp3')
 hitSound = pygame.mixer.Sound('hit.mp3')
 manSound = pygame.mixer.Sound('na-nas-napali.mp3')
 scoreMusic = pygame.mixer.Sound('muzyika-s-proydennoy-missiey-iz-gta-san-andreas.mp3')
-
+f = open('HiScore.txt', 'r+')
 music = pygame.mixer.music.load("music.mp3")
 pygame.mixer.music.play(-1)
 
@@ -37,7 +37,7 @@ class player(object):
         self.animCount = 0
         self.standing = True
         self.hitbox = (self.x, self.y - 10, 40, 80)
-        self.HiScore = 50
+        self.HiScore = int(f.read())
 
     def draw(self, window):
         if self.animCount + 1 >= 30:
@@ -81,7 +81,9 @@ class player(object):
 def drawWindow():
     window.blit(bg, (0, 0))
     text = font.render('Score :' + str(score), 1, (0,0,0))
+    textg = font.render('HiScore :' + str(man.HiScore), 1, (0, 0, 0))
     window.blit(text, (700,10))
+    window.blit(textg, (0, 10))
     man.draw(window)
     enemy.draw(window)
     for bullet in bullets:
@@ -191,8 +193,10 @@ done = True
 bullets=[]
 while done:
     clock.tick(30)
-    if score > man.HiScore:
-        man.HiScore = score
+    if score > xxx:
+        f.close
+        f = open('HiScore.txt', 'w+')
+        f.write(str(score))
     if  score == xxx or score == xxx+1 or score == xxx+2 or score == xxx+3 or score == xxx+4:
         music = pygame.mixer.music.load('muzyika-s-proydennoy-missiey-iz-gta-san-andreas.mp3')
         pygame.mixer.music.play(-1)
